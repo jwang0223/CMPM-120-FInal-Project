@@ -28,7 +28,7 @@ let keyUP, keyDOWN, keyLEFT, keyRIGHT, keyI, keyR, keyM, keyW, keyA, keyS, keyD,
 let borderUISize = game.config.height / 15; 
 let borderPadding = borderUISize / 3;
 
-// define moving directions for paw (direction[0] is x, direction[1] is y)
+// define moving directions for arm (direction[0] is x, direction[1] is y)
 const Dir = {
   Left: [-1, 0],
   Right: [1, 0],

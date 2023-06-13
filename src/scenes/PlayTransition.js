@@ -37,15 +37,7 @@ class PlayTransition extends Phaser.Scene {
         }, scope: this, loop: true});
     
     }
-     //animation function
-     /*createAnimations(animKey, spriteKey, startFrame, endFrame, loopTimes, frameRate) {
-        return (this.anims.create({
-          key: animKey,
-          frames: this.anims.generateFrameNumbers(spriteKey, { start: startFrame, end: endFrame }),
-          frameRate,
-          repeat: loopTimes,
-        }));
-      }*/
+
   }
 
 

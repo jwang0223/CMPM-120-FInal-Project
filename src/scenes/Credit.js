@@ -5,9 +5,8 @@ class Credit extends Phaser.Scene {
     create(){
         this.background= this.add.tileSprite(0, 0, 640, 480, 'background').setOrigin(0,0);
         
-        let creditConfig = {
-            fontFamily: 'Georgia', 
-            fontSize: '25px', 
+        let creditConfig = { 
+            fontSize: '22px', 
             backgroundColor: 'transparent',
             color: 'blue',
             align: 'right',
@@ -19,7 +18,6 @@ class Credit extends Phaser.Scene {
         };
 
         let mssgConfig = {
-            fontFamily: 'Georgia', 
             fontSize: '18px', 
             backgroundColor: 'transparent',
             color: 'blue',
@@ -35,12 +33,12 @@ class Credit extends Phaser.Scene {
        
         Built with: Phaser 3, Javascript 
 
-        
 
         `;
-        this.add.text(game.config.width/2, game.config.height/7 - borderUISize - borderPadding, 'Credits', creditConfig).setOrigin(0.5);
-        this.add.text(game.config.width/2, game.config.height/1.5, mssg , mssgConfig).setOrigin(0.5);
-        this.add.text(game.config.width/2, game.config.height/1.2, 'Click <- to go back to menu' , creditConfig).setOrigin(0.5);
+        this.add.text(game.config.width/2, game.config.height/10 - borderUISize - borderPadding, 'Credits', creditConfig).setOrigin(0.5);
+        this.add.text(game.config.width/2, game.config.height/5, mssg , mssgConfig).setOrigin(0.5);
+        this.add.text(game.config.width/2, game.config.height/3.5, 'Click <- to go back to menu' , creditConfig).setOrigin(0.5);
+
 
         
 
@@ -51,11 +49,7 @@ class Credit extends Phaser.Scene {
     }
     update(){
 
-        
-
         if (Phaser.Input.Keyboard.JustDown(keyLEFT)) {
-           
-            // this.sound.play('sfx_select');
               this.scene.start("menuScene");    
         }
     }

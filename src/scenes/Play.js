@@ -16,7 +16,7 @@ class Play extends Phaser.Scene {
         this.load.image('cage1', './assets/cage_resized2.png');
         this.load.image('fireball', './assets/fireball.png');
         this.load.spritesheet('firebird', './assets/bird.png', {frameWidth: 125, frameHeight: 400, startFrame: 0, endFrame: 4})
-        this.load.image('paw','./assets/paw.png');
+        this.load.image('arm','./assets/arm.png');
 
 
     }
@@ -25,8 +25,8 @@ class Play extends Phaser.Scene {
 
         this.gameOver = false; 
 
-        this.pawHealth = 100;
-        this.pawDirection = Dir.Right;
+        this.armHealth = 100;
+        this.armDirection = Dir.Right;
 
         this.background = this.add.tileSprite(0, 0, 640, 480, 'window').setOrigin(0,0);
         this.cage = this.add.tileSprite(-80, -40, 800, 550, 'cage1').setOrigin(0,0);
@@ -34,25 +34,22 @@ class Play extends Phaser.Scene {
         this.player.body.setSize(200, 150, true); // fix this 
         
         
-        this.paw = this.physics.add.sprite(-400, 170, 'paw').setScale(0.3);
+        this.arm = this.physics.add.sprite(-400, 170, 'arm').setScale(0.3);
   
         fireball = this.physics.add.sprite(700, 700, 'fireball');
 
         //this.moveRight = true;
-        this.pawMoving = true;
+        this.armMoving = true;
 
         worldBounds = this.physics.world.bounds;
 
         let scoreConfig = {
             fontSize: '30px',
             fill: '#ffffff',
-            fontFamily: '"Georgia"',
-            strokeThickness: 5,
-            stroke: 'black',
     
         };
 
-        this.catHP = this.add.text(0 , 0, 'Cat Health: ' + this.pawHealth, scoreConfig);
+        this.catHP = this.add.text(0 , 0, 'Robot Health: ' + this.armHealth, scoreConfig);
 
 
 
@@ -83,8 +80,8 @@ class Play extends Phaser.Scene {
   
     update(){
 
-        if (this.pawHealth <= 0 || this.gameOver == true){
-            this.catHP.setText("Cat Health: " + this.pawHealth);
+        if (this.armHealth <= 0 || this.gameOver == true){
+            this.catHP.setText("Robot Health: " + this.armHealth);
             this.gameDone();
         }
         
@@ -100,21 +97,21 @@ class Play extends Phaser.Scene {
 
 
 
-            // Spawn paw with random direction
-            if (this.pawReachedEnd()) {
+            // Spawn arm with random direction
+            if (this.armReachedEnd()) {
 
-                this.spawnPaw();
+                this.spawnarm();
             }
     
-            // Paw movement
-            if (this.pawMoving && !this.pawReachedEnd()){
+            // arm movement
+            if (this.armMoving && !this.armReachedEnd()){
                 // if moving left or right
-                if (this.pawDirection == Dir.Left || this.pawDirection == Dir.Right) {
-                    this.paw.x += 10 * this.pawDirection[0];
+                if (this.armDirection == Dir.Left || this.armDirection == Dir.Right) {
+                    this.arm.x += 10 * this.armDirection[0];
                 }
 
-                else if (this.pawDirection == Dir.Up || this.pawDirection == Dir.Down) {
-                    this.paw.y += 10 * this.pawDirection[1];
+                else if (this.armDirection == Dir.Up || this.armDirection == Dir.Down) {
+                    this.arm.y += 10 * this.armDirection[1];
                 }
 
 
@@ -153,10 +150,10 @@ class Play extends Phaser.Scene {
                 this.player.y += 5;
             }
 
-            this.physics.add.overlap(fireball, this.paw, reset, null, this);
-            // Tracking for player and paw collision
-            this.physics.add.overlap(this.player, this.paw, gameLost, null, this);
-            this.catHP.setText("Cat Health: " + this.pawHealth);
+            this.physics.add.overlap(fireball, this.arm, reset, null, this);
+            // Tracking for player and arm collision
+            this.physics.add.overlap(this.player, this.arm, gameLost, null, this);
+            this.catHP.setText("Robot Health: " + this.armHealth);
         }
     }
 
@@ -164,8 +161,6 @@ class Play extends Phaser.Scene {
         let textConfig = {
             fontSize: '30px',
             fill: '#ffffff',
-            fontFamily: '"Georgia"',
-            strokeThickness: 5,
             stroke: 'black',
     
         };
@@ -175,61 +170,61 @@ class Play extends Phaser.Scene {
         
     }
 
-    spawnPaw() {
+    spawnarm() {
         // Pick and set random direction
         var rand = Math.floor(Math.random() * (Object.keys(Dir).length));
-        this.pawDirection = Dir[Object.keys(Dir)[rand]];
+        this.armDirection = Dir[Object.keys(Dir)[rand]];
 
         // Set sprite rotation and hitbox
-        switch(this.pawDirection) {
+        switch(this.armDirection) {
             case Dir.Right:
-                this.paw.setAngle(0);
-                this.paw.body.setSize(980, 425);
+                this.arm.setAngle(0);
+                this.arm.body.setSize(980, 425);
                 break;
             case Dir.Left:
-                this.paw.setAngle(180);
-                this.paw.body.setSize(980, 425);
+                this.arm.setAngle(180);
+                this.arm.body.setSize(980, 425);
                 break;
             case Dir.Up:
-                this.paw.setAngle(270);
-                this.paw.body.setSize(425, 980);
+                this.arm.setAngle(270);
+                this.arm.body.setSize(425, 980);
                 break;
             case Dir.Down:
-                this.paw.setAngle(90);
-                this.paw.body.setSize(425, 980);
+                this.arm.setAngle(90);
+                this.arm.body.setSize(425, 980);
                 break;
         }
 
-        // Left/right: Spawn paw with x depending on direction and random y within range, and move danger
-        if (this.pawDirection == Dir.Left || this.pawDirection == Dir.Right) {
-            this.paw.y = Math.floor(Phaser.Math.Between(170, 400));
-            this.paw.x = 320 - (720 * this.pawDirection[0]);
+        // Left/right: Spawn arm with x depending on direction and random y within range, and move danger
+        if (this.armDirection == Dir.Left || this.armDirection == Dir.Right) {
+            this.arm.y = Math.floor(Phaser.Math.Between(170, 400));
+            this.arm.x = 320 - (720 * this.armDirection[0]);
 
         }
         
-        // Up/down: Spawn paw with y depending on direction and random x within range, and move danger
-        else if (this.pawDirection == Dir.Up || this.pawDirection == Dir.Down) {
-            this.paw.x = Math.floor(Phaser.Math.Between(170, 400));
-            this.paw.y = 240 - (720 * this.pawDirection[1]);
+        // Up/down: Spawn arm with y depending on direction and random x within range, and move danger
+        else if (this.armDirection == Dir.Up || this.armDirection == Dir.Down) {
+            this.arm.x = Math.floor(Phaser.Math.Between(170, 400));
+            this.arm.y = 240 - (720 * this.armDirection[1]);
 
         }
     }
 
-    // returns true or false depending on if paw has passed edge (when it should reset position)
-    pawReachedEnd() {
-        if (this.pawDirection == Dir.Right && this.paw.x >= 900) {
+    // returns true or false depending on if arm has passed edge (when it should reset position)
+    armReachedEnd() {
+        if (this.armDirection == Dir.Right && this.arm.x >= 900) {
             return true;
         }
         
-        else if (this.pawDirection == Dir.Left && this.paw.x <= -260) {
+        else if (this.armDirection == Dir.Left && this.arm.x <= -260) {
             return true;
         }
 
-        else if (this.pawDirection == Dir.Up && this.paw.y <= -260) {
+        else if (this.armDirection == Dir.Up && this.arm.y <= -260) {
             return true;
         }
 
-        else if (this.pawDirection == Dir.Down && this.paw.y >= 740) {
+        else if (this.armDirection == Dir.Down && this.arm.y >= 740) {
             return true;
         }
 
@@ -237,21 +232,17 @@ class Play extends Phaser.Scene {
     }
 }
 
-function reset(fireball, paw) {
+function reset(fireball, arm) {
     fireball.destroy();
-    // paw.destroy();
-    this.pawMoving = false;
-    this.spawnPaw();
+    this.armMoving = false;
+    this.spawnarm();
 
-    this.DelayPaw = this.time.addEvent({delay: 2000, callback: () => {
-        //this.paw = this.physics.add.sprite(-400, 170, 'paw').setScale(0.3);
-        //this.danger = this.add.sprite(30, this.paw.y, 'danger').setScale(0.2);
-        //this.moveRight = true;
-        this.pawMoving = true;
+    this.Delayarm = this.time.addEvent({delay: 2000, callback: () => {
+        this.armMoving = true;
 
     }, scope: this, loop: false});
-    this.pawHealth -= 5;
-    this.paw.x -= 80 * this.pawDirection[0];
+    this.armHealth -= 5;
+    this.arm.x -= 80 * this.armDirection[0];
     control = false;
 }
 
