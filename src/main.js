@@ -1,3 +1,12 @@
+// five of Phaser's major components 
+// Physics systems
+// Text Object 
+// Tween manager
+// Animation manager
+// Camera
+// Timers
+
+
 let config = {
     type: Phaser.CANVAS, 
     width: 640, 

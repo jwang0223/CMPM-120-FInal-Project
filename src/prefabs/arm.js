@@ -1,4 +1,4 @@
-class Paw extends Phaser.GameObjects.Sprite {
+class arm extends Phaser.GameObjects.Sprite {
     constructor(scene, x, y, texture, frame) {
         super(scene, x, y, texture, frame);
         scene.add.existing(this);
@@ -17,7 +17,7 @@ class Paw extends Phaser.GameObjects.Sprite {
 
     update() {
 
-        //randomly spawn paw between range of cage 
+        //randomly spawn arm between range of cage 
         if (this.x <= 0){
             this.y = Math.floor(Phaser.Math.Between(170, 400));
         }

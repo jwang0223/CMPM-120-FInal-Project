@@ -21,7 +21,7 @@ class PlayTransition extends Phaser.Scene {
             frameRate: 8,
             repeat: -1
         });
-        //this.createAnimations('fly', 'player', 0, 3, -1, 10);
+
 
 
         this.player.play('fly');
